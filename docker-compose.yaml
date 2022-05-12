@@ -1,0 +1,78 @@
+version: '3.7'
+
+services:
+
+  accounts-service:
+    image: renatogm24/ntt-accounts-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8081:8081"
+    networks:
+      - bank-network
+    depends_on:
+      - cloud-config-server
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  clients-service:
+    image: renatogm24/ntt-clients-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - bank-network
+    depends_on:
+      - cloud-config-server
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  credits-service:
+    image: renatogm24/ntt-credits-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8082:8082"
+    networks:
+      - bank-network
+    depends_on:
+      - cloud-config-server
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  api-gateway:
+    image: renatogm24/ntt-api-gateway:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - bank-network
+    depends_on:
+      - cloud-config-server
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  naming-server:
+    image: renatogm24/ntt-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - bank-network
+    depends_on:
+      - cloud-config-server
+    environment:
+      SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
+
+  cloud-config-server:
+    image: renatogm24/ntt-cloud-config-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8888:8888"
+    networks:
+      - bank-network
+
+networks:
+  bank-network:
