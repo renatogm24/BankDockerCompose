@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   accounts-service:
-    image: renatogm24/ntt-accounts-service:0.0.1-SNAPSHOT
+    image: renatogm24/ntt-accounts-service:0.0.3-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8081:8081"
@@ -16,7 +16,7 @@ services:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
 
   clients-service:
-    image: renatogm24/ntt-clients-service:0.0.1-SNAPSHOT
+    image: renatogm24/ntt-clients-service:0.0.2-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8080:8080"
@@ -29,7 +29,7 @@ services:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
 
   credits-service:
-    image: renatogm24/ntt-credits-service:0.0.1-SNAPSHOT
+    image: renatogm24/ntt-credits-service:0.0.2-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8082:8082"
