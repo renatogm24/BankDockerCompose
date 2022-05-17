@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   accounts-service:
-    image: renatogm24/ntt-accounts-service:0.0.3-SNAPSHOT
+    image: renatogm24/ntt-accounts-service:0.0.4-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8081:8081"
@@ -14,6 +14,8 @@ services:
     environment:
       SPRING.CONFIG.IMPORT: optional:configserver:http://cloud-config-server:8888
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      SERVICES-URI.CLIENTS: http://clients-service:8080/clients
+      SERVICES-URI.CREDITS: http://credits-service:8082/credits
 
   clients-service:
     image: renatogm24/ntt-clients-service:0.0.2-SNAPSHOT
